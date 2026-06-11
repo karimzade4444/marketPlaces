@@ -1,4 +1,4 @@
-import { Flex, Space, Table, Tag } from "antd";
+import { Flex, Space, Table, Tag,Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import store from "../lib/redux/store/store";
 import { useEffect } from "react";
@@ -11,27 +11,31 @@ const columns = [
   },
   {
     title: "Изоброжение",
-    dataIndex: "изоброжение",
-    key: "изоброжение",
+    dataIndex: "img",
+    key: "img",
+    render: (image) => (
+      <img src={image} alt="" className="w-20 h-20 object-cover" />
+    ),
   },
   {
     title: "Название",
-    dataIndex: "название",
-    key: "название",
+    dataIndex: "model",
+    key: "model",
   },
   {
     title: "Цена",
-    dataIndex: "цена",
-    key: "цена",
+    dataIndex: "price",
+    key: "price",
   },
   {
     title: "Action",
+    align: "center",
     key: "action",
-    render: (_, record) => (
-      <Space size="medium">
-        <a>Редактировать {record.name}</a>
-        <a>Удалить</a>
-      </Space>
+    render: () => (
+      <div className=" flex justify-center items-center gap-5">
+        <Button>Редактировать</Button>
+        <Button danger>Удалить</Button>
+      </div>
     ),
   },
 ];
@@ -44,12 +48,12 @@ useEffect(()=>{
 },[search])
 
   return (
-  <div>
-<Table columns={columns} dataSource={}/>
-
-  </div>;
-
-  )
+    <div className="mt-15">
+      <div className="w-[95%] m-auto">
+        <Table columns={columns} dataSource={data} />
+      </div>
+    </div>
+  );
 };
 
 export default Bottom;

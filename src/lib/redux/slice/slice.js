@@ -5,8 +5,13 @@ export const mainSlice = createSlice({
   name: "mainSlice",
   initialState: {
     data: [],
+    search:"",
   },
-  reducers: {},
+  reducers: {
+    setSearch:(state,action)=>{
+      state.search=action.payload
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(getProducts.fulfilled, (state, action) => {
       state.data = action.payload;
@@ -14,5 +19,5 @@ export const mainSlice = createSlice({
   },
 });
 
-export const {} =mainSlice.actions;
+export const {setSearch} =mainSlice.actions;
 export default mainSlice.reducer;
