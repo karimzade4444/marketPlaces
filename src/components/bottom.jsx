@@ -2,7 +2,16 @@ import { Flex, Space, Table, Tag,Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import store from "../lib/redux/store/store";
 import { useEffect } from "react";
-import { getProducts } from "../api/products";
+import { deleteProduct, getProducts } from "../api/products";
+
+
+const Bottom = () => {
+const {data, search} = useSelector((store)=>store.marketPlace);
+const dispatch = useDispatch();
+useEffect(()=>{
+    dispatch(getProducts(search));
+},[search])
+
 const columns = [
   {
     title: "ID",
@@ -31,21 +40,21 @@ const columns = [
     title: "Action",
     align: "center",
     key: "action",
-    render: () => (
+    render: (_, record) => (
       <div className=" flex justify-center items-center gap-5">
         <Button>Редактировать</Button>
-        <Button danger>Удалить</Button>
+        <Button
+          danger
+          onClick={() => {
+            dispatch(deleteProduct(record.id));
+          }}
+        >
+          Удалить
+        </Button>
       </div>
     ),
   },
 ];
-
-const Bottom = () => {
-const {data, search} = useSelector((store)=>store.marketPlace);
-const dispatch = useDispatch();
-useEffect(()=>{
-    dispatch(getProducts(search));
-},[search])
 
   return (
     <div className="mt-15">
