@@ -19,36 +19,36 @@ export const getProducts = createAsyncThunk(
   },
 );
 
-export const createUsers = createAsyncThunk(
+export const createProduct = createAsyncThunk(
   "mainSlice/createUsers",
   async (data, { dispatch }) => {
     try {
       await axios.post(api, data);
-      dispatch(getUsers());
+      dispatch(getProducts());
     } catch (error) {
       console.error(error);
     }
   },
 );
 
-export const deleteUser = createAsyncThunk(
+export const deleteProduct = createAsyncThunk(
   "mainSlice/deleteUser",
   async (id, { dispatch }) => {
     try {
       await axios.delete(`${api}/${id}`);
-      dispatch(getUsers());
+      dispatch(getProducts());
     } catch (error) {
       console.error(error);
     }
   },
 );
 
-export const updateUser = createAsyncThunk(
+export const updateProduct = createAsyncThunk(
   "mainSlice/updateUser",
   async (data, { dispatch }) => {
     try {
       await axios.put(`${api}/${data.id}`, data);
-      dispatch(getUsers());
+      dispatch(getProducts());
     } catch (error) {
       console.error(error);
     }
