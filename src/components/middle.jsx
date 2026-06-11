@@ -2,7 +2,7 @@ import { Button, Input, Modal } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createProduct, getProducts } from "../api/products";
-import { setCreatImg, setCreatModel, setCreatPrice } from "../lib/redux/slice/slice";
+import { setCreatImg, setCreatModel, setCreatPrice, setSearch } from "../lib/redux/slice/slice";
 
 const Middle = () => {
   const [creatModal, setCreatModal] = useState(false);
@@ -31,6 +31,8 @@ const Middle = () => {
               placeholder="Введите название..."
               variant="filled"
               className="w-100! mt-2!"
+              value={search}
+              onChange={(e)=>{dispatch(setSearch(e.target.value))}}
             ></Input>
           </div>
           <div>

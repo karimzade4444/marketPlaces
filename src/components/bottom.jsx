@@ -1,13 +1,14 @@
-import { Flex, Space, Table, Tag,Button, Modal } from "antd";
+import {  Table, Button, Modal,Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import store from "../lib/redux/store/store";
+
 import { useEffect, useState } from "react";
-import { deleteProduct, getProducts } from "../api/products";
+import { deleteProduct, getProducts, updateProduct } from "../api/products";
+import { setEditId, setEditImg, setEditModel, setEditPrice } from "../lib/redux/slice/slice";
 
 
 const Bottom = () => {
-const {data, search} = useSelector((store)=>store.marketPlace);
-const {editModal, setEditModal} = useState(false)
+const {data, search,id,editModel,editImg,editPrice} = useSelector((store)=>store.marketPlace);
+const [editModal, setEditModal] = useState(false)
   const handleCancel = () => {
     setEditModal(false);
   };
@@ -45,7 +46,11 @@ const columns = [
     render: (_, record) => (
       <div className=" flex justify-center items-center gap-5">
         <Button onClick={()=>{
-            dispatch()
+            dispatch(setEditId(record.id))
+            dispatch(setEditModel(record.model));
+            dispatch(setEditImg(record.img));
+            dispatch(setEditPrice(record.price));
+            setEditModal(true)
         }}>Редактировать</Button>
         <Button
           danger
@@ -66,11 +71,54 @@ const columns = [
         <Table columns={columns} dataSource={data} />
       </div>
 
-      <Modal
-        title="Изменить товарь"
-        open={editModal}
-        onCancel={handleCancel}
-      ></Modal>
+      <Modal title="Изменить товарь" open={editModal} onCancel={handleCancel} onOk={()=>{dispatch(
+        updateProduct({
+          id,
+          model: editModel,
+          price: editPrice,
+          img: editImg,
+        }),
+      );
+      setEditModal(false)
+      }}>
+        <div className=" w-[95%] m-auto">
+          <div>
+            <div>
+              <p>Изоброжение</p>
+              <Input
+                placeholder="https://..."
+                variant="filled"
+                value={editImg}
+                onChange={(e) => {
+                  dispatch(setEditImg(e.target.value));
+                }}
+              ></Input>
+            </div>
+            <div>
+              <p>Название</p>
+              <Input
+                placeholder="Введите название товара..."
+                variant="filled"
+                value={editModel}
+                onChange={(e) => {
+                  dispatch(setEditModel(e.target.value));
+                }}
+              ></Input>
+            </div>
+            <div>
+              <p>Цена</p>
+              <Input
+                placeholder="Введите цену..."
+                variant="filled"
+                value={editPrice}
+                onChange={(e) => {
+                  dispatch(setEditPrice(e.target.value));
+                }}
+              ></Input>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

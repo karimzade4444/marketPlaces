@@ -27,7 +27,9 @@ export const mainSlice = createSlice({
     setEditPrice: (state, action) => {
       state.editPrice = action.payload;
     },
-
+    setEditId: (state, action) => {
+      state.id = action.payload;
+    },
     setCreatModel: (state, action) => {
       state.creatModel = action.payload;
     },
@@ -45,6 +47,6 @@ export const mainSlice = createSlice({
   },
 });
 
-export const { setSearch, setCreatImg, setCreatModel, setCreatPrice } =
+export const { setSearch, setCreatImg, setCreatModel, setCreatPrice, setEditId,setEditImg,setEditModel,setEditPrice } =
   mainSlice.actions;
 export default mainSlice.reducer;
