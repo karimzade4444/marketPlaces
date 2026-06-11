@@ -9,7 +9,7 @@ export const getProducts = createAsyncThunk(
     try {
       const response = await axios.get(api, {
         params: {
-          name: search,
+          model: search,
         },
       });
       return response.data;
