@@ -1,4 +1,7 @@
 import { Button, Flex } from "antd";
+import Top from "./components/top";
+import Middle from "./components/middle";
+import Bottom from "./components/bottom";
 
 const App = () => {
   return (
@@ -10,6 +13,10 @@ const App = () => {
           <Button type="primary">Админ Панель</Button>
         </div>
       </div>
+<Top/>
+<Middle/>
+<Bottom/>
+
     </div>
   );
 };
